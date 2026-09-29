@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep clinic imagery and logo supplied by the user as Lovable Assets pointers, while deriving the favicon as a small local PNG; this keeps page media lightweight and browser icons compatible.

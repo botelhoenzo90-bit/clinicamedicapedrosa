@@ -42,7 +42,7 @@ const services: Item[] = [
   [CalendarDays, "Check-up", "Avaliações de rotina conforme indicação profissional."]
 ];
 
-const testimonials = [
+const testimonials: [string, string][] = [
   ["Mariana Oliveira", "Atendimento atencioso e uma equipe que explica tudo com muita clareza."],
   ["Carlos Mendes", "Gostei muito da organização e da facilidade para realizar meus exames."],
   ["Juliana Martins", "A coleta domiciliar facilitou muito minha rotina e o atendimento foi cuidadoso."],
@@ -78,9 +78,9 @@ function Index() {
       </div>
     </section>
 
-    <section className="info-marquee" aria-label="Informações da clínica"><div className="info-track">{[1,2].flatMap(copy => [
+    <section className="info-marquee" aria-label="Informações da clínica"><div className="info-track">{[1,2].flatMap(copy => ([
       [CheckCircle2, "Exames laboratoriais"],[Home, "Coleta domiciliar"],[Stethoscope, "Clínica médica"],[ShieldCheck, "Atendimento cuidadoso"],[CalendarDays, "Seg–Sex • 07h às 17h"]
-    ].map(([I,t]) => <span key={copy + t}><I /> {t}</span>))}</div></section>
+    ] as [typeof Activity, string][]).map(([I,t]) => <span key={copy + t}><I /> {t}</span>))}</div></section>
 
     <section className="section services" id="servicos"><div className="container"><div className="section-head centered-head"><label>O QUE ENCONTRA NA PEDROSA</label><h2>Um só lugar para cuidar da saúde <span>com mais praticidade.</span></h2><p>Serviços pensados para diferentes momentos e necessidades.</p></div><div className="service-grid">{services.map(([I,t,d]) => <article className="service-card" key={t}><div className="service-icon"><I /></div><span className="card-kicker">PEDROSA</span><h3>{t}</h3><p>{d}</p></article>)}</div><div className="section-cta"><a className="btn btn-primary" href={WHATSAPP} target="_blank" rel="noreferrer"><MessageCircle /> Agendar atendimento</a></div></div></section>
 
