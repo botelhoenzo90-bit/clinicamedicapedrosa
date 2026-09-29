@@ -1,5 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import coletaImage from "@/assets/coleta-domiciliar.png.asset.json";
+import whatsappImage from "@/assets/whatsapp.png.asset.json";
+import clinicImage from "@/assets/clinica-pedrosa.png.asset.json";
+import pedrosaLogo from "@/assets/logo-pedrosa.png.asset.json";
 import { Activity, ArrowRight, BadgeCheck, CalendarDays, CheckCircle2, ChevronDown, Dna, FlaskConical, HeartPulse, Home, Instagram, MapPin, MessageCircle, Microscope, Navigation, Phone, ShieldCheck, Star, Stethoscope, TestTube2, UserRound } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -8,7 +12,8 @@ export const Route = createFileRoute("/")({
     { name: "description", content: "Exames laboratoriais, check-up, clínica médica e coleta domiciliar na Pedrosa Labs, em Âncora, Rio das Ostras." },
     { property: "og:title", content: "Pedrosa Labs | Clínica Médica e Laboratório" },
     { property: "og:description", content: "Cuidado e confiança para sua saúde." },
-    { property: "og:type", content: "website" }
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" }
   ]}),
   component: Index
 });
@@ -37,7 +42,7 @@ const services: Item[] = [
   [CalendarDays, "Check-up", "Avaliações de rotina conforme indicação profissional."]
 ];
 
-const testimonials = [
+const testimonials: [string, string][] = [
   ["Mariana Oliveira", "Atendimento atencioso e uma equipe que explica tudo com muita clareza."],
   ["Carlos Mendes", "Gostei muito da organização e da facilidade para realizar meus exames."],
   ["Juliana Martins", "A coleta domiciliar facilitou muito minha rotina e o atendimento foi cuidadoso."],
@@ -63,21 +68,27 @@ function Index() {
 
   return <main className="pedrosa-site">
     <section className="hero" id="inicio">
-      <div className="hero-orb hero-orb-a" /><div className="hero-orb hero-orb-b" />
       <div className="container hero-inner">
         <div className="hero-copy">
-          <div className="eyebrow"><i /> PEDROSA LABS • CLÍNICA MÉDICA</div>
+          <img className="hero-logo" src={pedrosaLogo.url} alt="Pedrosa Labs — Clínica e Laboratório" />
           <h1>Sua saúde merece <span>atenção antes da preocupação.</span></h1>
           <p>Exames laboratoriais, check-up, clínica médica e coleta domiciliar em um só lugar. Um cuidado próximo para você acompanhar a sua saúde com mais informação, tranquilidade e segurança.</p>
           <div className="hero-actions"><a className="btn btn-primary btn-lg" href={WHATSAPP} target="_blank" rel="noreferrer"><MessageCircle /> Agendar pelo WhatsApp <ArrowRight /></a><a className="btn btn-light btn-lg" href="#rotina">Entender a prevenção</a></div>
         </div>
-        <div className="hero-image-wrap"><img src="https://images.unsplash.com/photo-1579154204601-01588f351d1d?auto=format&fit=crop&w=1400&q=90" alt="Profissional em laboratório" /><div className="hero-badge"><FlaskConical /><span><strong>Exames e cuidado</strong><small>Seg–Sex • 07h às 17h</small></span></div></div>
       </div>
     </section>
 
-    <section className="info-marquee" aria-label="Informações da clínica"><div className="info-track">{[1,2].flatMap(copy => [
+    <section className="info-marquee" aria-label="Informações da clínica"><div className="info-track">{[1,2].flatMap(copy => ([
       [CheckCircle2, "Exames laboratoriais"],[Home, "Coleta domiciliar"],[Stethoscope, "Clínica médica"],[ShieldCheck, "Atendimento cuidadoso"],[CalendarDays, "Seg–Sex • 07h às 17h"]
-    ].map(([I,t]) => <span key={copy + t}><I /> {t}</span>))}</div></section>
+    ] as [typeof Activity, string][]).map(([I,t]) => <span key={copy + t}><I /> {t}</span>))}</div></section>
+
+    <section className="section services" id="servicos"><div className="container"><div className="section-head centered-head"><label>O QUE ENCONTRA NA PEDROSA</label><h2>Um só lugar para cuidar da saúde <span>com mais praticidade.</span></h2><p>Serviços pensados para diferentes momentos e necessidades.</p></div><div className="service-grid">{services.map(([I,t,d]) => <article className="service-card" key={t}><div className="service-icon"><I /></div><span className="card-kicker">PEDROSA</span><h3>{t}</h3><p>{d}</p></article>)}</div><div className="section-cta"><a className="btn btn-primary" href={WHATSAPP} target="_blank" rel="noreferrer"><MessageCircle /> Agendar atendimento</a></div></div></section>
+
+    <section className="section checkup-showcase"><div className="container checkup-inner"><div className="section-head centered-head checkup-heading"><label>CONDIÇÃO ESPECIAL DE CHECK-UP</label><h2>Cuide da sua saúde com uma avaliação <span>pensada para a sua rotina.</span></h2></div><div className="kit-card"><div className="kit-title">CHECK-UP PEDROSA</div><div className="kit-columns"><div><b>KIT KIDS</b><ul><li>Hemograma completo</li><li>Glicose</li><li>Lipidograma</li><li>Hepatograma</li><li>Ácido úrico</li><li>Vitamina D</li><li>Vitamina B-12</li><li>EAS, EPF</li></ul><strong>R$ 90,00</strong></div><div><b>KIT ADULTO</b><ul><li>Hemograma completo</li><li>Glicose</li><li>Lipidograma</li><li>Hepatograma</li><li>Creatinina</li><li>Ureia</li><li>Triglicerídeos</li><li>Ácido úrico</li><li>Vitamina D</li><li>Vitamina B-12</li></ul><strong>R$ 130,00</strong></div></div><small>Valores apresentados conforme material enviado pela clínica. Confirme disponibilidade, condições e preparo diretamente com a Pedrosa.</small></div><div className="checkup-copy"><p>Uma oportunidade para organizar seus exames de rotina e conversar com a equipe sobre o que faz sentido para você. O pacote não substitui avaliação médica e a indicação de exames deve considerar cada pessoa.</p><a className="btn btn-white" href={WHATSAPP} target="_blank" rel="noreferrer"><MessageCircle /> Quero saber mais sobre o check-up</a></div></div></section>
+
+    <section className="section exams" id="exames"><div className="container"><div className="section-head centered-head"><label>EXAMES LABORATORIAIS</label><h2>Informação para acompanhar <span>o que importa.</span></h2><p>Conheça alguns dos exames divulgados pela Pedrosa. A indicação e o preparo devem ser confirmados conforme cada caso.</p></div><div className="marquee"><div className="exam-track">{[...exams, ...exams].map(([I,t,d], i) => <article className="exam-card" key={t + i}><div className="exam-icon"><I /></div><h3>{t}</h3><p>{d}</p></article>)}</div></div><div className="section-cta"><a className="btn btn-primary" href={WHATSAPP} target="_blank" rel="noreferrer"><MessageCircle /> Consultar exames e preparo</a></div></div></section>
+
+    <section className="section collection"><div className="container collection-inner"><div className="section-head centered-head"><label>COLETA DOMICILIAR</label><h2>Mais conforto para fazer seu exame <span>onde você estiver.</span></h2><p>Para idosos, famílias, pessoas com dificuldade de deslocamento ou quem prefere mais praticidade, consulte a disponibilidade de coleta em casa.</p></div><div className="collection-image"><img src={coletaImage.url} alt="Profissional de saúde realizando coleta domiciliar em paciente" /></div><div className="collection-points"><article><Home /><h3>No conforto da sua casa</h3><p>Mais praticidade para sua rotina.</p></article><article><ShieldCheck /><h3>Atendimento cuidadoso</h3><p>Orientações antes da coleta.</p></article><article><CalendarDays /><h3>Agendamento simples</h3><p>Combine os detalhes pelo WhatsApp.</p></article></div><div className="section-cta"><a className="btn btn-primary" href={WHATSAPP} target="_blank" rel="noreferrer"><MessageCircle /> Solicitar coleta domiciliar</a></div></div></section>
 
     <section className="section routine" id="rotina">
       <div className="container narrow-center">
@@ -92,17 +103,9 @@ function Index() {
       </div>
     </section>
 
-    <section className="section services" id="servicos"><div className="container"><div className="section-head centered-head"><label>O QUE ENCONTRA NA PEDROSA</label><h2>Um só lugar para cuidar da saúde <span>com mais praticidade.</span></h2><p>Serviços pensados para diferentes momentos e necessidades.</p></div><div className="service-grid">{services.map(([I,t,d]) => <article className="service-card" key={t}><div className="service-icon"><I /></div><span className="card-kicker">PEDROSA</span><h3>{t}</h3><p>{d}</p></article>)}</div><div className="section-cta"><a className="btn btn-primary" href={WHATSAPP} target="_blank" rel="noreferrer"><MessageCircle /> Agendar atendimento</a></div></div></section>
-
-    <section className="section exams" id="exames"><div className="container"><div className="section-head centered-head"><label>EXAMES LABORATORIAIS</label><h2>Informação para acompanhar <span>o que importa.</span></h2><p>Conheça alguns dos exames divulgados pela Pedrosa. A indicação e o preparo devem ser confirmados conforme cada caso.</p></div><div className="marquee"><div className="exam-track">{[...exams, ...exams].map(([I,t,d], i) => <article className="exam-card" key={t + i}><div className="exam-icon"><I /></div><h3>{t}</h3><p>{d}</p></article>)}</div></div><div className="section-cta"><a className="btn btn-primary" href={WHATSAPP} target="_blank" rel="noreferrer"><MessageCircle /> Consultar exames e preparo</a></div></div></section>
-
-    <section className="section checkup-showcase"><div className="container checkup-inner"><div className="section-head centered-head checkup-heading"><label>CONDIÇÃO ESPECIAL DE CHECK-UP</label><h2>Cuide da sua saúde com uma avaliação <span>pensada para a sua rotina.</span></h2></div><div className="kit-card"><div className="kit-title">CHECK-UP PEDROSA</div><div className="kit-columns"><div><b>KIT KIDS</b><strong>R$ 90,00</strong><ul><li>Hemograma completo</li><li>Glicose</li><li>Lipidograma</li><li>Hepatograma</li><li>Ácido úrico</li><li>Vitamina D</li><li>Vitamina B-12</li><li>EAS, EPF</li></ul></div><div><b>KIT ADULTO</b><strong>R$ 130,00</strong><ul><li>Hemograma completo</li><li>Glicose</li><li>Lipidograma</li><li>Hepatograma</li><li>Creatinina</li><li>Ureia</li><li>Triglicerídeos</li><li>Ácido úrico</li><li>Vitamina D</li><li>Vitamina B-12</li></ul></div></div><small>Valores apresentados conforme material enviado pela clínica. Confirme disponibilidade, condições e preparo diretamente com a Pedrosa.</small></div><div className="checkup-copy"><p>Uma oportunidade para organizar seus exames de rotina e conversar com a equipe sobre o que faz sentido para você. O pacote não substitui avaliação médica e a indicação de exames deve considerar cada pessoa.</p><a className="btn btn-white" href={WHATSAPP} target="_blank" rel="noreferrer"><MessageCircle /> Quero saber mais sobre o check-up</a></div></div></section>
-
-    <section className="section collection"><div className="container collection-inner"><div className="section-head centered-head"><label>COLETA DOMICILIAR</label><h2>Mais conforto para fazer seu exame <span>onde você estiver.</span></h2><p>Para idosos, famílias, pessoas com dificuldade de deslocamento ou quem prefere mais praticidade, consulte a disponibilidade de coleta em casa.</p></div><div className="collection-points"><article><Home /><h3>No conforto da sua casa</h3><p>Mais praticidade para sua rotina.</p></article><article><ShieldCheck /><h3>Atendimento cuidadoso</h3><p>Orientações antes da coleta.</p></article><article><CalendarDays /><h3>Agendamento simples</h3><p>Combine os detalhes pelo WhatsApp.</p></article></div><div className="section-cta"><a className="btn btn-primary" href={WHATSAPP} target="_blank" rel="noreferrer"><MessageCircle /> Solicitar coleta domiciliar</a></div></div></section>
-
     <section className="section process"><div className="container"><div className="section-head centered-head"><label>COMO FUNCIONA</label><h2>Do primeiro contato ao atendimento, <span>sem complicação.</span></h2><p>Um processo simples para você saber o que acontece em cada etapa.</p></div><div className="process-grid"><article><span>1</span><h3>Fale com a equipe</h3><p>Conte qual exame ou atendimento você procura.</p></article><article><span>2</span><h3>Receba as orientações</h3><p>Confirme preparo, horário e disponibilidade.</p></article><article><span>3</span><h3>Faça sua coleta</h3><p>Venha até a unidade ou consulte a coleta domiciliar.</p></article><article><span>4</span><h3>Acompanhe seu cuidado</h3><p>Com os resultados, siga as orientações do profissional.</p></article></div><div className="section-cta"><a className="btn btn-primary" href={WHATSAPP} target="_blank" rel="noreferrer"><MessageCircle /> Agendar agora</a></div></div></section>
 
-    <section className="section clinic-photo"><div className="container clinic-photo-inner"><div className="section-head centered-head"><label>CONHEÇA A PEDROSA</label><h2>Um ambiente pensado para receber você <span>com cuidado.</span></h2></div><div className="single-clinic-image"><img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1600&q=90" alt="Ambiente de clínica médica" /></div><div className="section-cta"><a className="btn btn-primary" href={WHATSAPP} target="_blank" rel="noreferrer"><MessageCircle /> Agendar atendimento</a></div></div></section>
+    <section className="section clinic-photo"><div className="container clinic-photo-inner"><div className="section-head centered-head"><label>CONHEÇA A PEDROSA</label><h2>Um ambiente pensado para receber você <span>com cuidado.</span></h2></div><div className="single-clinic-image"><img src={clinicImage.url} alt="Recepção da Pedrosa Labs e Clínica e Laboratório" /></div><div className="section-cta"><a className="btn btn-primary" href={WHATSAPP} target="_blank" rel="noreferrer"><MessageCircle /> Agendar atendimento</a></div></div></section>
 
     <section className="section partners" id="convenios"><div className="container narrow-center"><div className="section-head centered-head"><label>CONVÊNIOS E PARCEIROS</label><h2>Confira alguns dos <span>convênios divulgados.</span></h2><p>A cobertura pode variar conforme o plano e o procedimento. Confirme antes do atendimento.</p></div><div className="partner-list">{partners.map(p => <div className="partner" key={p}><BadgeCheck /> <span>{p}</span></div>)}</div><div className="section-cta"><a className="btn btn-primary" href={WHATSAPP} target="_blank" rel="noreferrer"><Phone /> Confirmar meu convênio</a></div></div></section>
 
@@ -115,6 +118,6 @@ function Index() {
     <section className="final"><div className="container final-inner"><div><label>SEU PRÓXIMO PASSO</label><h2>Não deixe sua saúde para depois. <span>Converse com a Pedrosa.</span></h2><p>Agende seu atendimento, consulte um exame ou tire suas dúvidas pelo WhatsApp.</p></div><a className="btn btn-white btn-lg" href={WHATSAPP} target="_blank" rel="noreferrer"><MessageCircle /> Agendar pelo WhatsApp <ArrowRight /></a></div></section>
 
     <footer className="footer"><div className="container footer-grid"><div><a href="#inicio" className="brand"><span className="brand-mark"><Dna /></span><span><strong>PEDROSA</strong><small>LABS • CLÍNICA MÉDICA</small></span></a><p>Laboratório de Análises Clínicas e Clínica Médica Pedrosa.</p></div><div><b>Atendimento</b><span>Segunda a sexta</span><span>07h às 17h</span></div><div><b>Contato</b><span>(22) 99277-8140</span><span>(22) 99256-2444</span><a href="https://instagram.com/laboratorio.pedrosa" target="_blank" rel="noreferrer"><Instagram /> Instagram</a></div><div><b>Endereço</b><span>Av. das Flores, 1753</span><span>Âncora • Rio das Ostras - RJ</span></div></div><div className="container footer-bottom"><span>© {new Date().getFullYear()} Pedrosa Labs. Todos os direitos reservados.</span><span>Informações do site não substituem orientação médica.</span></div></footer>
-    <a className="floating-whatsapp" href={WHATSAPP} target="_blank" rel="noreferrer" aria-label="WhatsApp"><MessageCircle /></a>
+    <a className="floating-whatsapp" href={WHATSAPP} target="_blank" rel="noreferrer" aria-label="WhatsApp"><img src={whatsappImage.url} alt="" /></a>
   </main>;
 }
