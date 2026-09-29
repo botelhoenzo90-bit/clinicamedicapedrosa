@@ -6,7 +6,7 @@ import clinicImage from "@/assets/clinica-pedrosa.png.asset.json";
 import pedrosaLogo from "@/assets/logo-pedrosa.png.asset.json";
 import { Activity, ArrowRight, BadgeCheck, CalendarDays, CheckCircle2, ChevronDown, Dna, FlaskConical, HeartPulse, Home, Instagram, MapPin, MessageCircle, Microscope, Navigation, Phone, ShieldCheck, Star, Stethoscope, TestTube2, UserRound } from "lucide-react";
 
-const SHARING_LOGO = "https://clinicamedicapedrosa.lovable.app/__l5e/assets-v1/7268fc07-b51c-4f31-889a-20b9da0a31d7/logo-pedrosa.png";
+const SHARING_LOGO = "https://clinicamedicapedrosa.lovable.app/__l5e/assets-v1/7cc53e6e-b293-4cdc-a1b7-b0e1a32d2f3b/compartilhamento-pedrosa.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
@@ -15,7 +15,13 @@ export const Route = createFileRoute("/")({
     { property: "og:title", content: "Pedrosa Labs | Clínica Médica e Laboratório" },
     { property: "og:description", content: "Cuidado e confiança para sua saúde." },
     { property: "og:type", content: "website" },
+    { property: "og:url", content: "https://clinicamedicapedrosa.lovable.app/" },
     { property: "og:image", content: SHARING_LOGO },
+    { property: "og:image:secure_url", content: SHARING_LOGO },
+    { property: "og:image:type", content: "image/png" },
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
+    { property: "og:image:alt", content: "Logomarca da Pedrosa Labs, Clínica e Laboratório" },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:image", content: SHARING_LOGO }
   ]}),
