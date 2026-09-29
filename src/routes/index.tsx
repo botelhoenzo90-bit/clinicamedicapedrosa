@@ -6,6 +6,8 @@ import clinicImage from "@/assets/clinica-pedrosa.png.asset.json";
 import pedrosaLogo from "@/assets/logo-pedrosa.png.asset.json";
 import { Activity, ArrowRight, BadgeCheck, CalendarDays, CheckCircle2, ChevronDown, Dna, FlaskConical, HeartPulse, Home, Instagram, MapPin, MessageCircle, Microscope, Navigation, Phone, ShieldCheck, Star, Stethoscope, TestTube2, UserRound } from "lucide-react";
 
+const SHARING_LOGO = "https://clinicamedicapedrosa.lovable.app/__l5e/assets-v1/7268fc07-b51c-4f31-889a-20b9da0a31d7/logo-pedrosa.png";
+
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
     { title: "Pedrosa Labs | Clínica Médica e Laboratório" },
@@ -13,7 +15,9 @@ export const Route = createFileRoute("/")({
     { property: "og:title", content: "Pedrosa Labs | Clínica Médica e Laboratório" },
     { property: "og:description", content: "Cuidado e confiança para sua saúde." },
     { property: "og:type", content: "website" },
-    { name: "twitter:card", content: "summary_large_image" }
+    { property: "og:image", content: SHARING_LOGO },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:image", content: SHARING_LOGO }
   ]}),
   component: Index
 });
